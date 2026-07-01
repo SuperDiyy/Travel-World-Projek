@@ -6,6 +6,8 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>JELAJAH DUNIA BERSAMA NICHOLAS HADI</title>
         <link rel="stylesheet" href="style.css">
+        <!-- TAMBAHAN: jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
     <body>
         <header class="main-header">
@@ -81,8 +83,14 @@
                             <div class="content">
                                 <h2 class="nama-barang">Danau Toba</h2>
                                 <p class="deskripsi-barang">Jalan-jalan di Danau Toba yang penuh dengan keindahan alam dan danau yang dapat membuat anda takjub, anda akan mendapatkan penginapan, makan pagi/siang/malam, aksesoris.</p>
+                                <!-- TAMBAHAN -->
+                                <div style="margin-bottom: 10px;">
+                                    <button onclick="updateQty(this, -1)">-</button>
+                                    <span class="qty-count">0</span>
+                                    <button onclick="updateQty(this, 1)">+</button>
+                                </div>
                                 <div class="footer-box">
-                                    <span class="harga-barang">Rp 4.250.000</span>
+                                    <span class="harga-barang" data-price="4250000">Rp 4.250.000</span>
                                     <button class="buy-btn">Pesan Tiket</button>
                                 </div>
                             </div>
@@ -96,8 +104,14 @@
                             <div class="content">
                                 <h2 class="nama-barang">Gunung Bromo</h2>
                                 <p class="deskripsi-barang">Mendaki di Gunung Bromo yang penuh dengan keindahan alam yang dapat membuat anda takjub, anda akan mendapatkan penginapan, makan pagi/siang/malam.</p>
+                                <!-- TAMBAHAN -->
+                                <div style="margin-bottom: 10px;">
+                                    <button onclick="updateQty(this, -1)">-</button>
+                                    <span class="qty-count">0</span>
+                                    <button onclick="updateQty(this, 1)">+</button>
+                                </div>
                                 <div class="footer-box">
-                                    <span class="harga-barang">Rp 3.500.000</span>
+                                    <span class="harga-barang" data-price="3500000">Rp 3.500.000</span>
                                     <button class="buy-btn">Pesan Tiket</button>
                                 </div>
                             </div>
@@ -111,8 +125,14 @@
                             <div class="content">
                                 <h2 class="nama-barang">Raja Ampat</h2>
                                 <p class="deskripsi-barang">Jalan-jalan di Raja Ampat yang penuh dengan keindahan alam yang dapat membuat anda takjub, anda juga dapat melakukan diving, dan snorkeling, anda akan mendapatkan penginapan, makan pagi/siang/malam, aksesoris.</p>
+                                <!-- TAMBAHAN -->
+                                <div style="margin-bottom: 10px;">
+                                    <button onclick="updateQty(this, -1)">-</button>
+                                    <span class="qty-count">0</span>
+                                    <button onclick="updateQty(this, 1)">+</button>
+                                </div>
                                 <div class="footer-box">
-                                    <span class="harga-barang">Rp 6.000.000</span>
+                                    <span class="harga-barang" data-price="6000000">Rp 6.000.000</span>
                                     <button class="buy-btn">Pesan Tiket</button>
                                 </div>
                             </div>
@@ -150,5 +170,22 @@
         <footer>
             <p>&copy; 2026 Nicholas Hadi, Travel to the Moon</p>
         </footer>
+
+        <script>
+            function updateQty(btn, val) {
+                const card = $(btn).closest('.product-card');
+                const qtySpan = card.find('.qty-count');
+                const priceSpan = card.find('.harga-barang');
+                const basePrice = parseInt(priceSpan.data('price'));
+                
+                let currentQty = parseInt(qtySpan.text());
+                let newQty = currentQty + val;
+                if (newQty < 0) newQty = 0;
+                
+                qtySpan.text(newQty);
+                let total = basePrice * (newQty === 0 ? 1 : newQty);
+                priceSpan.text('Rp ' + total.toLocaleString('id-ID'));
+            }
+        </script>
     </body>
 </html>
